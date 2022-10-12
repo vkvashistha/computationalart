@@ -1,0 +1,9 @@
+symbols:
+X,F
+terminals:
++,-,[,]
+start:
+X
+rules:
+X->F + [ [ X ] - X ] - F [ - F X ] + X
+F->F F
