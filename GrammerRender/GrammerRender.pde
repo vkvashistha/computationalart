@@ -11,13 +11,17 @@ String readFromFile(String filename) {
 SymbolString output;
 Plant p;
 void setup() {
-  size(640, 360);
-  background(255);
-  p = new Plant(readFromFile("grammer01.txt"));
+  size(640, 320);
+  background(206, 220, 242);
+  p = new Plant(readFromFile("grammer01.txt"),640,320);
+  p.setPlantInclination(50);
   p.grow(6);
   
 }
 
 void draw() {
+  pushMatrix();
+  translate(60, 0);
   p.render();
+  popMatrix();
 }

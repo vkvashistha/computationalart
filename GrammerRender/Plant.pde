@@ -2,13 +2,20 @@ class Plant extends Grammer {
 
     private SymbolString plantString;
     private static final int DEVIATION_ANGLE=25;
-    private static final int SCREEN_WIDTH=640;
-    private static final int SCREEN_HEIGHT=320;
-    private static final int BRANCH_LENGTH=1;
-    private static final int LEAF_LENGTH=5;
-    public Plant(String grammerString) {
+    private int width=640;
+    private int height=320;
+    private int BRANCH_LENGTH=3;
+    private int plantInclination=40;
+    public Plant(String grammerString, int width, int height) {
         super(grammerString);
         plantString = generateRandomString(1);
+        this.width = width;
+        this.height = height;
+        BRANCH_LENGTH = (int)Math.min(width*0.01,height*0.01);
+    }
+    
+    public void setPlantInclination(int inclination) {
+      plantInclination = inclination;
     }
     
     public void grow(int size) {
@@ -17,7 +24,7 @@ class Plant extends Grammer {
 
     public void render() {
         Stack<DrawParams> lastDrawParams = new Stack<>();
-        DrawParams currentDrawParams = new DrawParams(40, SCREEN_WIDTH/2, SCREEN_HEIGHT);
+        DrawParams currentDrawParams = new DrawParams(plantInclination, 0, height);
         for(int i=0; i<plantString.length(); i++) {
             Symbol s = plantString.symbolAt(i);
             if("F".equals(s.toString())) {
@@ -26,7 +33,7 @@ class Plant extends Grammer {
                 int angle = currentDrawParams.angle;
                 int endX = posX + (int)(BRANCH_LENGTH*Math.cos(Math.toRadians(angle)));
                 int endY = posY - (int)(BRANCH_LENGTH*Math.sin(Math.toRadians(angle)));
-                stroke(180,210,45);
+                stroke(35, 74, 44);
                 line(posX, posY, endX, endY);
                 currentDrawParams.x = endX;
                 currentDrawParams.y = endY;
